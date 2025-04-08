@@ -1,0 +1,42 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #10d1e6;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    min-width: 220px;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    /* Плавна трансформація */
+    transform: scale(1);
+    /* Початковий масштаб */
+}
+
+.card:hover {
+    transform: scale(1.2);
+    /* Збільшуємо тільки на 20% (а не в 2 рази) */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    /* Тінь більша і глибша */
+}
+
+.text {
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+.button {
+    background-color: #1b0cea;
+    color: white;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #161034;
+}
