@@ -14,14 +14,14 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
-// Реєстрація нового користувача
+// Операція реєстрації нового користувача
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post('/users/signup', credentials);
-      setAuthHeader(response.data.token);
-      return response.data;
+      setAuthHeader(response.data.token); // Вставляємо токен у заголовки
+      return response.data; // Повертаємо дані користувача
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -42,33 +42,44 @@ export const login = createAsyncThunk(
   }
 );
 
-// Логаут користувача
-export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-  try {
-    await axios.post('/users/logout');
-    clearAuthHeader();
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
-  }
-});
 
-// Оновлення користувача за токеном
-export const refreshUser = createAsyncThunk(
-  'auth/refresh',
+// Операція виходу користувача
+export const logOut = createAsyncThunk(
+  'auth/logout',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
-
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue('Unable to fetch user');
-    }
-
     try {
-      setAuthHeader(persistedToken);
-      const response = await axios.get('/users/current');
-      return response.data;
+      await axios.post('/users/logout'); // Запит на сервер для логауту
+      clearAuthHeader(); // Очищаємо токен у заголовках axios
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+
+// Операція оновлення даних користувача за збереженим токеном
+export const refreshUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    try {
+      const reduxState = thunkAPI.getState(); // Отримуємо весь актуальний Redux-стан
+      const token = reduxState.auth.token;   // Беремо токен зі стану
+
+      if (!token) {
+        return thunkAPI.rejectWithValue('No token found');
+      }
+
+      setAuthHeader(token); // Встановлюємо токен у заголовки
+      const response = await axios.get('/users/current'); // Отримуємо дані користувача
+      return response.data; // Повертаємо дані
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  },
+  {
+    condition: (_, thunkAPI) => {
+      const reduxState = thunkAPI.getState();
+      return reduxState.auth.token !== null; // Запускати тільки якщо токен є!
+    },
+  }
+);
+

@@ -32,15 +32,19 @@ const authSlice = createSlice({
         state.token = null;
         state.isLoggedIn = false;
       })
-      // оновлення користувача (рефреш)
+      // Оновлення користувача - початок.Встановлюємо isRefreshing = true
       .addCase(refreshUser.pending, (state) => {
         state.isRefreshing = true;
       })
+
+      // Оновлення користувача - успішно
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
+
+      // Оновлення користувача - помилка
       .addCase(refreshUser.rejected, (state) => {
         state.isRefreshing = false;
       });
