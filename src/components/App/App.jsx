@@ -1,19 +1,18 @@
+import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { selectIsRefreshing } from '../../redux/auth/authSelectors';
-import { refreshUser } from '../../redux/auth/authOps';
-
 import Layout from '../../Layout/Layout';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import { useDispatch, useSelector } from 'react-redux';
+import { refreshUser } from '../../redux/auth/authOps';
+import { selectIsRefreshing } from '../../redux/auth/authSelectors';
 import RestrictedRoute from '../RestrictedRoute/RestrictedRoute';
-
-import HomePage from '../../pages/HomePage/HomePage';
-import RegisterPage from '../../pages/RegistrationPage/RegistrationPage';
-import LoginPage from '../../pages/LoginPage/LoginPage';
-import ContactsPage from '../../pages/ContactsPage/ContactsPage';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import Loader from '../Loader/Loader'; 
+
+
+const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
+const RegisterPage = lazy(() => import('../../pages/RegistrationPage/RegistrationPage'));
+const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
+const ContactsPage = lazy(() => import('../../pages/ContactsPage/ContactsPage'));
 
 export default function App() {
   const dispatch = useDispatch();
@@ -23,50 +22,43 @@ export default function App() {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    isRefreshing ? (
-       <Loader />
-    ) : (
+  return isRefreshing ? (
+    <Loader />   
+  ) : (
+    <Suspense fallback={<Loader />}> 
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* Головна сторінка */}
           <Route index element={<HomePage />} />
-
-          {/* Реєстрація */}
           <Route
-            path="/register"
+            path="register"
             element={
               <RestrictedRoute
-                element={<RegisterPage />}
+                component={<RegisterPage />}
                 redirectTo="/contacts"
               />
             }
           />
-
-          {/* Логін */}
           <Route
-            path="/login"
+            path="login"
             element={
               <RestrictedRoute
-                element={<LoginPage />}
+                component={<LoginPage />}
                 redirectTo="/contacts"
               />
             }
           />
-
-          {/* Контакти */}
           <Route
-            path="/contacts"
+            path="contacts"
             element={
               <PrivateRoute
-                element={<ContactsPage />}
+                component={<ContactsPage />}
                 redirectTo="/login"
               />
             }
           />
+          {/* TODO: Додати 404 сторінку */}
         </Route>
       </Routes>
-    )
+    </Suspense>
   );
 }
-

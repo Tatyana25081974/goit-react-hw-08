@@ -8,10 +8,10 @@ import { selectIsLoggedIn, selectIsRefreshing } from '../../redux/auth/authSelec
 // selectIsLoggedIn — чи користувач увійшов у систему
 // selectIsRefreshing — чи зараз оновлюється профіль користувача
 
-export default function PrivateRoute({ element, redirectTo = '/login' }) {
+export default function PrivateRoute({ component, redirectTo = '/login' }) {
 // Створюємо PrivateRoute:
 // приймає 2 пропси:
-// 1. element → який компонент потрібно показати (наприклад, ContactsPage)
+// 1. component → який компонент потрібно показати (наприклад, ContactsPage)
 // 2. redirectTo → шлях, куди редіректити (за замовчуванням — на /login)
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -25,7 +25,7 @@ export default function PrivateRoute({ element, redirectTo = '/login' }) {
 
   return shouldRedirect
     ? <Navigate to={redirectTo} />
-    : element;
+    : component;
   // Якщо треба редіректити — перенаправляємо користувача
   // Якщо все ок — показуємо переданий компонент
 }
