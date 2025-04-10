@@ -1,15 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Базова URL вже встановлена через axios в authOps
-
 // 1. Отримати всі контакти
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, thunkAPI) => {
     try {
       const response = await axios.get('/contacts');
-      return response.data; // Повертаємо масив контактів
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -22,7 +20,7 @@ export const addContact = createAsyncThunk(
   async (contact, thunkAPI) => {
     try {
       const response = await axios.post('/contacts', contact);
-      return response.data; // Повертаємо створений контакт
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -32,23 +30,23 @@ export const addContact = createAsyncThunk(
 // 3. Видалити контакт
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
-  async (contactId, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      await axios.delete(`/contacts/${contactId}`);
-      return contactId; // Повертаємо id видаленого контакту
+      await axios.delete(`/contacts/${id}`);
+      return id; // Повертаємо id для видалення зі списку
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-// 4. Оновити контакт
+// 4. Оновити контакт 
 export const updateContact = createAsyncThunk(
   'contacts/updateContact',
   async ({ id, updatedData }, thunkAPI) => {
     try {
       const response = await axios.patch(`/contacts/${id}`, updatedData);
-      return response.data; // Повертаємо оновлений контакт
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

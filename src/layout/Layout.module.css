@@ -1,0 +1,32 @@
+/* Layout.module.css */
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #0a0a0a, #1a1a1a);
+    /* Темний фон */
+    color: #ffffff;
+}
+
+.main {
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Адаптивність для планшетів */
+@media (max-width: 768px) {
+    .main {
+        padding: 15px;
+    }
+}
+
+/* Адаптивність для телефонів */
+@media (max-width: 480px) {
+    .main {
+        padding: 10px;
+    }
+}

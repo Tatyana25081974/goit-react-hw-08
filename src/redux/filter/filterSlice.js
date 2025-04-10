@@ -10,5 +10,8 @@ const filterSlice = createSlice({
   },
 });
 
+// Експортуємо дію (action)
 export const { setFilter } = filterSlice.actions;
+
+// Експортуємо редьюсер
 export default filterSlice.reducer;

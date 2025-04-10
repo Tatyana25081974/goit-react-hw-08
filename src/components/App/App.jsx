@@ -1,30 +1,72 @@
-import  ContactForm from '../ContactForm/ContactForm';
-import  SearchBox  from '../SearchBox/SearchBox';
-import  ContactList  from '../ContactList/ContactList';
-import { useDispatch }  from 'react-redux';
-import { useEffect }  from 'react';
-import { fetchContacts } from '../../redux/contactsOps';
+import { Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import css from './App.module.css';
+import { selectIsRefreshing } from '../../redux/auth/authSelectors';
+import { refreshUser } from '../../redux/auth/authOps';
+
+import Layout from '../Layout/Layout';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import RestrictedRoute from '../RestrictedRoute/RestrictedRoute';
+
+import HomePage from '../../pages/HomePage/HomePage';
+import RegisterPage from '../../pages/RegisterPage/RegisterPage';
+import LoginPage from '../../pages/LoginPage/LoginPage';
+import ContactsPage from '../../pages/ContactsPage/ContactsPage';
+import Loader from '../Loader/Loader'; 
 
 export default function App() {
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]); 
+    dispatch(refreshUser());
+  }, [dispatch]);
 
   return (
-    <div className={css.container}>
-      <h1 className={css.title}>Phonebook</h1>
+    isRefreshing ? (
+       <Loader />
+    ) : (
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* Головна сторінка */}
+          <Route index element={<HomePage />} />
 
-      <ContactForm />
+          {/* Реєстрація */}
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute
+                element={<RegisterPage />}
+                redirectTo="/contacts"
+              />
+            }
+          />
 
-      <h2 className={css.subtitle}>Find contacts by name</h2>
+          {/* Логін */}
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute
+                element={<LoginPage />}
+                redirectTo="/contacts"
+              />
+            }
+          />
 
-      <SearchBox />
-
-      <ContactList />
-    </div>
+          {/* Контакти */}
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute
+                element={<ContactsPage />}
+                redirectTo="/login"
+              />
+            }
+          />
+        </Route>
+      </Routes>
+    )
   );
 }
+

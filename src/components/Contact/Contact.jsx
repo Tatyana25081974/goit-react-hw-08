@@ -1,22 +1,22 @@
 import { useDispatch } from 'react-redux';
 import { deleteContact } from '../../redux/contactsOps';
-import css from './Contact.module.css';
+import styles from './Contact.module.css';
 
-export default function Contact({ contact }) {
+export default function Contact({ id, name, number }) {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(deleteContact(contact.id));
+    dispatch(deleteContact(id));
   };
 
   return (
-    <div className={css.card}>
-      <p className={css.text}>
-        <strong>{contact.name}</strong>: {contact.number}
+    <li className={styles.contactItem}>
+      <p className={styles.contactText}>
+        {name}: {number}
       </p>
-      <button className={css.button} onClick={handleDelete}>
+      <button onClick={handleDelete} className={styles.deleteButton}>
         Видалити
       </button>
-    </div>
+    </li>
   );
 }
