@@ -26,7 +26,7 @@ export default function LoginForm() {
         validationSchema={LoginSchema}
         onSubmit={handleSubmit}
       >
-        <Form className={styles.form}>
+        <Form className={styles.form} autoComplete="off">
           <label className={styles.label}>
             Email
             <Field name="email" type="email" className={styles.input} />

@@ -1,19 +1,33 @@
-.container {
-    max-width: 800px;
-    margin: 80px auto 0;
-    padding: 20px;
-    text-align: center;
-    background: linear-gradient(135deg, #e0f7fa, #ffffff);
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    animation: fadeInContainer 1.5s ease forwards;
+/* Загальний фон сторінки */
+.wrapper {
+    min-height: 100vh;
+    background-color: #0a0a23;
+    /* Темно-синій фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;box-shadow: 0 0 20px 5px hwb(302 4% 38%);
+        /* Жовта підсвітка */
 }
 
-/* Анімація контейнера */
+/* Контейнер контенту */
+.container {
+    max-width: 600px;
+    width: 100%;
+    background-color: #fff8dc;
+    /* Ніжний світло-жовтий */
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    
+    animation: fadeInContainer 1.2s ease forwards;
+}
+
+/* Анімація появи */
 @keyframes fadeInContainer {
     from {
         opacity: 0;
-        transform: scale(0.95);
+        transform: scale(0.9);
     }
 
     to {
@@ -22,55 +36,40 @@
     }
 }
 
+/* Заголовок */
 .title {
-    font-size: 42px;
+    font-size: 36px;
     font-weight: bold;
-    color: #1e3a8a;
+    color: #0d47a1;
+    /* Темно-синій */
     margin-bottom: 20px;
-    position: relative;
-    overflow: hidden;
 }
 
-/* Підсвічування під заголовком */
-.title::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background-color: #00bcd4;
-    margin: 12px auto 0;
-    border-radius: 2px;
-    animation: growBar 1.2s ease-out forwards;
-}
-
-/* Анімація підсвічування */
-@keyframes growBar {
-    from {
-        width: 0;
-    }
-
-    to {
-        width: 60px;
-    }
-}
-
+/* Текст */
 .text {
     font-size: 20px;
-    color: #334155;
-    margin-bottom: 10px;
-    opacity: 0;
-    animation: fadeInText 2s forwards;
-    animation-delay: 0.7s;
+    color: #1e3a8a;
+    /* Насичений синій */
+    margin-bottom: 15px;
 }
 
-/* Анімація тексту */
-@keyframes fadeInText {
-    to {
-        opacity: 1;
-    }
-}
-
+/* Ефект при наведенні */
 .text:hover {
     color: #0288d1;
     transition: color 0.3s ease;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px 20px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .text {
+        font-size: 18px;
+    }
 }

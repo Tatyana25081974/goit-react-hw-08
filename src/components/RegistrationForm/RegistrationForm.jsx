@@ -19,10 +19,10 @@ const RegistrationSchema = Yup.object().shape({
 export default function RegistrationForm() {
   const dispatch = useDispatch();
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = (values, actions) => {
     dispatch(register(values));
-    resetForm();
-    };
+   actions.resetForm();
+  };
     return (
     <div className={styles.wrapper}>
       <h2 className={styles.title}>Реєстрація</h2>
@@ -32,7 +32,7 @@ export default function RegistrationForm() {
         validationSchema={RegistrationSchema}
         onSubmit={handleSubmit}
       >
-        <Form className={styles.form}>
+        <Form className={styles.form} autoComplete="off">
           <label className={styles.label}>
             Ім'я
             <Field name="name" type="text" className={styles.input} />

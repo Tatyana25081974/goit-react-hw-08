@@ -1,20 +1,24 @@
-/* Layout.module.css */
-
 .layout {
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background: linear-gradient(to bottom right, #0a0a0a, #1a1a1a);
-    /* Темний фон */
-    color: #ffffff;
+        flex-direction: column;
+        min-height: 100vh;
+        background: linear-gradient(to bottom right, #07dbea, #042a2b);
+       
+        color: #ffffff;
+        
+        
+   
 }
 
 .main {
     flex: 1;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
+        width: 100%;
+        
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+   
 }
 
 /* Адаптивність для планшетів */
