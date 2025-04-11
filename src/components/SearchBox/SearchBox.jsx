@@ -12,7 +12,9 @@ export default function SearchBox() {
   };
 
   return (
-    <div className={css.searchBox}>
+    <div className={css.wrapper}>
+      <h2 className={css.subtitle}>Пошук контакта</h2>
+
       <label className={css.label}>
         Пошук контактів за імʼям:
         <input

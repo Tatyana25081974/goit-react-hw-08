@@ -10,11 +10,11 @@ export default function Contact({ id, name, number }) {
   };
 
   return (
-    <li className={styles.contactItem}>
-      <p className={styles.contactText}>
+    <li className={styles.item}>
+      <p className={styles.text}>
         {name}: {number}
       </p>
-      <button onClick={handleDelete} className={styles.deleteButton}>
+      <button onClick={handleDelete} className={styles.button}>
         Видалити
       </button>
     </li>

@@ -1,22 +1,26 @@
+
 import ContactForm from '../../components/ContactForm/ContactForm';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import ContactList from '../../components/ContactList/ContactList';
-import styles from './ContactsPage.module.css'; // Імпортуємо стилі
+import styles from './ContactsPage.module.css';
 
 export default function ContactsPage() {
   return (
-    <div className={styles.page}>
+    <div className={styles.wrapper}>
       <h1 className={styles.title}>Мої контакти</h1>
 
-      <div className={`${styles.section} ${styles.formSection}`}>
-        <ContactForm />
+      <div className={styles.formsContainer}>
+        <div className={styles.formBlock}>
+          <ContactForm />
+        </div>
+
+        <div className={styles.formBlock}>
+         
+          <SearchBox />
+        </div>
       </div>
 
-      <div className={`${styles.section} ${styles.searchSection}`}>
-        <SearchBox />
-      </div>
-
-      <div className={`${styles.section} ${styles.listSection}`}>
+      <div className={styles.contactsListContainer}>
         <ContactList />
       </div>
     </div>

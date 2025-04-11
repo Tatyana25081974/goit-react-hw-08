@@ -1,22 +1,25 @@
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 350px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
+width: 100%;
+    /* Бере всю ширину свого контейнера */
+    max-width: 450px;
+   
+    padding: 15px;
     border: 2px solid #ffe600;
     border-radius: 12px;
     background-color: #d8e610;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
+    box-sizing: border-box;
+    /* щоб padding не збільшував ширину */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0 auto;
+    /* Центруємо всередині */
 }
-
 .label {
     display: flex;
     flex-direction: column;
-    font-weight: 600;
+    
     font-size: 16px;
     color: #4207f1;
 }
